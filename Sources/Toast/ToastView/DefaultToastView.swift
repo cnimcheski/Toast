@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct DefaultToastView<T: ToastViewModel>: View {
+public struct DefaultToastView<T: ToastViewModel>: View {
     @State private var viewModel: T
     
-    init(viewModel: T = DefaultToastViewModel()) {
+    public init(viewModel: T = DefaultToastViewModel()) {
         _viewModel = State(initialValue: viewModel)
     }
     
-    var body: some View {
+    public var body: some View {
         if let toast = viewModel.toast {
             HStack {
                 toastText(toast)
