@@ -5,10 +5,10 @@
 //  Created by Steve Nimcheski on 7/15/25.
 //
 
-import Foundation
+import SwiftUI
 
 public protocol ToastType: Equatable {
-    var message: String { get }
+    var message: LocalizedStringKey { get }
     var defaultDuration: Double { get }
 }
 

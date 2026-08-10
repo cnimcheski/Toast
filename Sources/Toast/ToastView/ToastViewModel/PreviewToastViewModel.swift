@@ -56,7 +56,7 @@ private extension PreviewToastViewModel {
 enum PreviewToastType: ToastType {
     case unknown
     
-    var message: String {
+    var message: LocalizedStringKey {
         switch self {
         case .unknown:
             "Unknown Error."
