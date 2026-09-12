@@ -17,6 +17,11 @@ public protocol ToastType: Equatable {
 public struct ToastAction {
     let title: LocalizedStringKey
     let handler: () -> Void
+    
+    public init(title: LocalizedStringKey, handler: @escaping () -> Void) {
+        self.title = title
+        self.handler = handler
+    }
 }
 
 public struct Toast: Equatable {
