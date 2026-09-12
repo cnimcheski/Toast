@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public protocol ToastType: Equatable {
+public protocol ToastType {
     var message: LocalizedStringKey { get }
     var defaultDuration: Double { get }
     var action: ToastAction? { get }
