@@ -19,7 +19,7 @@ public struct DefaultToastView<T: ToastViewModel>: View {
             HStack {
                 toastText(toast)
                 Spacer()
-                closeButton
+                trailingButton(toast)
             }
             .font(.caption)
             .foregroundStyle(.background)
@@ -40,15 +40,27 @@ private extension DefaultToastView {
             .padding([.vertical, .leading])
     }
     
-    var closeButton: some View {
-        Button {
-            viewModel.dismissToast()
-        } label: {
-            Label("Close pop-up message", systemImage: "xmark")
-                .labelStyle(.iconOnly)
-                .padding()
-                .contentShape(.rect)
+    @ViewBuilder
+    func trailingButton(_ toast: Toast) -> some View {
+        if let action = toast.type.action {
+            actionButton(action)
+        } else {
+            closeButton
         }
+    }
+    
+    func actionButton(_ action: ToastAction) -> some View {
+        Button(action.title) {
+            viewModel.dismissToast()
+            action.handler()
+        }
+        .padding()
+    }
+    
+    var closeButton: some View {
+        Button("Close pop-up message", systemImage: "xmark", action: viewModel.dismissToast)
+            .padding()
+            .labelStyle(.iconOnly)
     }
 }
 
@@ -56,6 +68,6 @@ private extension DefaultToastView {
 
 #if DEBUG
 #Preview {
-    DefaultToastView(viewModel: PreviewToastViewModel())
+    DefaultToastView(viewModel: PreviewToastViewModel(type: .general))
 }
 #endif

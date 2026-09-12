@@ -10,6 +10,13 @@ import SwiftUI
 public protocol ToastType: Equatable {
     var message: LocalizedStringKey { get }
     var defaultDuration: Double { get }
+    var action: ToastAction? { get }
+}
+
+/// Defines an action that can be displayed as a trailing button on a toast.
+public struct ToastAction {
+    let title: LocalizedStringKey
+    let handler: () -> Void
 }
 
 public struct Toast: Equatable {

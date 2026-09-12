@@ -12,7 +12,8 @@ import SwiftUI
 final class PreviewToastViewModel: ToastViewModel {
     private(set) var toast: Toast?
     
-    init(_ toast: Toast = .init(type: PreviewToastType.unknown)) {
+    init(type: PreviewToastType) {
+        let toast = Toast(type: type)
         self.toast = toast
         startInfiniteToastLoop(using: toast)
     }
@@ -54,10 +55,13 @@ private extension PreviewToastViewModel {
 // MARK: - PreviewToastType
 
 enum PreviewToastType: ToastType {
+    case general
     case unknown
     
     var message: LocalizedStringKey {
         switch self {
+        case .general:
+            "General Error."
         case .unknown:
             "Unknown Error."
         }
@@ -65,8 +69,18 @@ enum PreviewToastType: ToastType {
     
     var defaultDuration: Double {
         switch self {
-        case .unknown:
+        case .general,
+            .unknown:
             5
+        }
+    }
+    
+    var action: ToastAction? {
+        switch self {
+        case .general:
+            .init(title: "Retry", handler: {})
+        case .unknown:
+            nil
         }
     }
 }
